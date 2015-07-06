@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+# for heroku
+ruby '2.2.1'
+gem 'rails_12factor'
+
 gem 'rails', '4.2.2'
 gem 'pg'
 gem 'puma'
