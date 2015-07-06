@@ -1,0 +1,19 @@
+.site-header
+  %h1 RiddleSchool
+  %noscript
+    = 'To use this application you must enable JavaScript in your browser. Click '
+    %a{href: 'http://activatejavascript.org/', target: :blank}= 'here'
+    = ' for instructions.'
+%a.cloud#play-button= 'Play'
+.cloud#student-login-section
+  = form_tag do
+    = text_field_tag :location
+.site-footer
+  .grass
+  %a#menu-toggle-button= 'Menu'
+  .site-menu
+    %ul
+      %li.teacher-section
+        Teacher section coming soon.
+      %li.info-section
+        Info section coming soon.

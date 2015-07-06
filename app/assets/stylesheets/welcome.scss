@@ -1,0 +1,78 @@
+$sky_top: #79f;
+$sky_bottom: #abf;
+
+html{
+  height: 100%;
+  background-color: #79f;
+}
+body {
+  min-height: 100%;
+  position: relative;
+  background: -webkit-linear-gradient($sky_top, $sky_bottom);
+  background: -o-linear-gradient($sky_top, $sky_bottom);
+  background: -moz-linear-gradient($sky_top, $sky_bottom);
+  background: linear-gradient($sky_top, $sky_bottom);
+}
+html, body{
+  padding: 0;
+  margin: 0;
+  font-family:  Verdana, Geneva, sans-serif;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  cursor: pointer;
+}
+.site-header {
+  color: white;
+  padding: 16px 32px;
+  h1{
+    font-weight: normal;
+}
+}
+.cloud{
+  padding: 3em;
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+}
+#play-button{
+  top: 40%;
+  left: 25%;
+}
+#student-login-section{
+  top: 40%;
+  left: 65%;
+  display: none;
+}
+.site-footer {
+  background-color: #5cca25;
+  min-height: 2em;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  .grass {
+    height: 25px;
+    width: 100%;
+    position: absolute;
+    top: -25px;
+    background: url("grass.png") repeat-x left top;
+}
+#menu-toggle-button{
+  padding-left: 1em;
+  margin-bottom: 1em;
+  color: #242;
+}
+.site-menu{
+  display: none;
+  ul li{
+    list-style-type: none;
+    float: left;
+    padding: 1em;
+}
+.teacher-section{
+  width: 50%;
+}
+}
+}

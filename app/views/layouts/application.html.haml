@@ -7,4 +7,8 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    %noscript
+      = 'To use this application you must enable JavaScript in your browser. Click '
+      %a{href: 'http://activatejavascript.org/', target: :blank}= 'here'
+      = ' for instructions.'
     = yield
