@@ -1,5 +1,5 @@
 bird = {}
-bird.view = {bodyColor: '#33d'}
+bird.view = {bodyColor: '#33d', flying: false, flapDuration: 300, wingsUp: false}
 bird.view.eyeSettings = {xoffset: 14.5, yoffset: 44, radius: 15}
 bird.view.createEyeComponents = function(radius, fillColor){
   set = this.paper.set();
@@ -58,16 +58,70 @@ bird.view.create = function(){
   this.eyePupils = this.createEyeComponents(2, 'black');
   this.createLegs();
 }
+bird.takeOff = function(){
+  this.view.flying = true;
+  this.view.flapWhileFlying();
+  this.view.legsUp();
+}
+bird.land = function(){
+  bird.view.flying = false;
+  bird.view.legsDown();
+}
+bird.view.flapWhileFlying = function(){
+  bird.view.wingsUp = false;
+  if(bird.view.flying){
+    bird.view.flap();
+    setTimeout(bird.view.flap, bird.view.flapDuration/2);
+    setTimeout(bird.view.flapWhileFlying, bird.view.flapDuration);
+  }
+}
+bird.view.flap = function(){
+  bird.view.wingsUp = !bird.view.wingsUp;
+  wingPaths = bird.view.wingsUp ? bird.view.wingPathsUp : bird.view.wingPathsDown;
+  i = 0;
+  bird.view.wings.forEach(function(wing){
+    wing.animate({
+      path: wingPaths[i]
+    }, bird.view.flapDuration);
+    i++;
+  });
+}
+bird.view.legsUp = function(){
+  this.legs.animate({
+    transform: 'T0,-6px'
+  }, 200);
+}
+bird.view.legsDown = function(){
+  bird.view.legs.animate({
+    transform: 'T0,0px'
+  }, 200);
+}
+bird.view.lookAround = function(){
+  distance = (Math.random()*.6+.2) * bird.view.eyeSettings.radius;
+  angle = Math.random()*6.28;
+  x = distance * Math.cos(angle);
+  y = distance * Math.sin(angle);
+  dur = Math.random()*400+20;
+  bird.view.eyePupils.forEach(function(pupil){
+    pupil.animate({
+      transform: 'T'+x+','+y
+    }, dur);
+  });
+  setTimeout(bird.view.lookAround, Math.random()*1500+1200);
+}
 
 moveBird = function(destination, millis){
-  $('#mascot').animate({
+  mascot = $('#mascot');
+  mascot.animate({
     left: destination.left,
     top: destination.top
   }, millis);
+  bird.takeOff();
+  setTimeout(bird.land, millis);
 }
 
 topCenterOfDiv = function(id){
-b = $(id);
+  b = $(id);
   return {left: b.position().left + b.width()/2,
     top: b.position().top + b.height()*0};
 }
@@ -75,8 +129,9 @@ b = $(id);
 $(document).ready(function(){
   $('#menu-toggle-button').on('click', toggleSiteMenu);
   $('#play-button').on('click', playButtonPressed);
-  moveBird(topCenterOfDiv('#play-button'), 0);
   bird.view.create();
+  moveBird(topCenterOfDiv('#play-button'), 0);
+  bird.view.lookAround();
 });
 
 toggleSiteMenu = function(){
